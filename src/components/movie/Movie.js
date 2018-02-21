@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import './movie.css';
 
 export default class Movie extends Component {
 
@@ -14,7 +15,7 @@ export default class Movie extends Component {
     if(Poster === 'N/A') {
       return (
         <li>
-          <p className="missingPoster">?</p>
+          <p className="missing-poster">?</p>
           <h2>{Title}</h2>
           <p>{Year}</p>
         </li>

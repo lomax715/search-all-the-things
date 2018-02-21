@@ -75,7 +75,7 @@ export default class App extends Component {
 
     const { movies, error, loading, page, title, totalResults } = this.state;
 
-    const resultsHeader = <div>Search for &quot;{title}&quot; found {totalResults} matches</div>;
+    const resultsHeader = <div className="results-string">Search for &quot;{title}&quot; found {totalResults} matches</div>;
     let noSearch;
     if(!movies && title) noSearch = <div>No results found!</div>;
     return (
@@ -85,10 +85,10 @@ export default class App extends Component {
             <img src={loadingImage}/>
           </div>
         )}
+        <header id="header">
+          <h1>MoviesNow App</h1>
+        </header>
         <main id="main">
-          <header>
-            <h1>MoviesNow App</h1>
-          </header>
           <section id="search">
             <Search onSearch={this.handleSearch}/>
             {movies ? resultsHeader : noSearch}

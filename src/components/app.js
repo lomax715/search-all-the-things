@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { search } from '../services/starWarsApi.js';
 import Search from './search';
-import SwData from './swData';
-import swList from './swList';
+import SwList from './swList';
+import Dropdown from './dropdown';
+
+
 
 
 export default class App extends Component {
@@ -30,6 +32,9 @@ export default class App extends Component {
       },
       error => {
         this.setState({ error, results: null });
+      })
+      .then(() => {
+        this.setState({ loading: false });
       });
     
   }; 
@@ -40,16 +45,21 @@ export default class App extends Component {
 
 
   render(){
-    const { results } = this.state;
+    const { results, loading } = this.state;
     return (
       <div>
         <header>
           <Search onSearch={this.handleSearch}/>
         </header>
-
         <div>
-          <div results={results}/>
+          <Dropdown/>
         </div>
+        <div className="loading">{loading && 'Loading...'}</div>
+      
+        <div>
+          {results && <SwList results={results}/>}
+        </div>
+          
       </div>
 
     );

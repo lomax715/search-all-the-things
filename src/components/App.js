@@ -1,15 +1,66 @@
 import React, { Component } from 'react';
 import './app.css';
+import Search from './Search';
+// import Paging from './Paging';
+// import Articles from './Articles';
+import { search } from '../services/movieApi';
 
 export default class App extends Component {
 
+  state = {
+    movies: null,
+    total: 0,
+    title: null,
+    page: 1,
+    loading: false,
+    error: null
+  };
+
+  searchTitles = () => {
+    this.setState({
+      loading: true,
+      error: null
+    });
+
+    const { title, page } = this.state;
+
+    search(title, page) //search movies API
+      .then(
+        ({ titles, totalResults }) => { //return results 
+          this.setState({ titles, totalResults });
+        },
+        error => { //return error if no results
+          this.setState({ error, titles: null });
+        }
+      )
+      .then(() => { //remove loading
+        this.setState({ loading: false });
+      });
+  };
+
+  handleSearch = title => {
+    this.setState({ title }, this.searchTitles);
+  };
+
   render() {
+
+    const { movies, error, loading, page, title, totalResults } = this.state;
 
     return (
       <main id="main">
         <header>
-          <h1></h1>
+          <h1>MoviesNow App</h1>
         </header>
+        <section id="search">
+          <Search onSearch={this.handleSearch}/>
+        </section>
+
+        <div>{loading && 'Loading...'}</div>
+        <pre>{error && error.message}</pre>
+
+        <section id="results">
+          {/* results go here */}
+        </section>
         <footer id="footer">
           <ul>
             <li>

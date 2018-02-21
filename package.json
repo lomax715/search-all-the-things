@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint src",
     "build": "webpack",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "test": "echo \"Testing coming tomorrow!\" && exit 0"
   },
   "repository": {
     "type": "git",

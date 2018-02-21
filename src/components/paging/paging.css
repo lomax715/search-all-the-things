@@ -1,0 +1,6 @@
+.page-buttons {
+  display: flex;
+  button {
+    margin: .5rem;
+  }
+}

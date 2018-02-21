@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import './paging.css';
 
 export default class Paging extends Component {
 
@@ -18,9 +19,10 @@ export default class Paging extends Component {
     return (
       <div className="paging">
         <p>Page {page} of {totalPages}</p>
-        &nbsp;
-        <button onClick={onPrev} disabled={page === 1}>&lt;</button>
-        <button onClick={onNext} disabled={page === totalPages}>&gt;</button>
+        <div className="page-buttons">
+          <button onClick={onPrev} disabled={page === 1}>&lt;</button>
+          <button onClick={onNext} disabled={page === totalPages}>&gt;</button>
+        </div>
       </div>
     );
   }

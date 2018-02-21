@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './app.css';
-import Search from './Search';
-import Movies from './Movies';
+import Search from './search/Search';
+import Movies from './movie/Movies';
 import { search } from '../services/movieApi';
 import { filterSearch } from '../services/movieApi';
-import Paging from './Paging';
+import Paging from './paging/Paging';
 import loadingImage from './loading.gif';
 
 export default class App extends Component {
@@ -77,14 +77,14 @@ export default class App extends Component {
 
     const resultsHeader = <div>Search for &quot;{title}&quot; found {totalResults} matches</div>;
     let noSearch;
-    if(!movies && title) {
-      noSearch = <div>No results found!</div>;
-    } else {
-      noSearch = <div>Search for a title</div>;
-    }
-
+    if(!movies && title) noSearch = <div>No results found!</div>;
     return (
       <div id="container">
+        {loading && (
+          <div className="loading">
+            <img src={loadingImage}/>
+          </div>
+        )}
         <main id="main">
           <header>
             <h1>MoviesNow App</h1>
@@ -93,18 +93,13 @@ export default class App extends Component {
             <Search onSearch={this.handleSearch}/>
             {movies ? resultsHeader : noSearch}
             {movies && (
-              <div onClick={this.handleFilter}>
+              <div className="filter" onClick={this.handleFilter}>
                 <button>Movie</button>
                 <button>Series</button>
                 <button>Episode</button>
               </div>
             )}
           </section>
-          {loading && (
-            <div className="loading">
-              <img src={loadingImage}/>
-            </div>
-          )}
           <pre>{error && error.message}</pre>
 
           <section id="results">

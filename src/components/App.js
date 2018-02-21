@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Search from './Search';
 import Paging from './Paging';
+import Articles from './Articles';
 import { search } from '../services/omdbApi';
 
 const PAGE_SIZE = 10;
@@ -13,6 +14,7 @@ export default class App extends Component {
     total: 0,
     topic: null,
     page: 1,
+    totalResults: 0,
     loading: false,
     error: null
   };
@@ -45,7 +47,7 @@ export default class App extends Component {
   };
 
   render() {
-    // const { } = this.state;
+    const { articles, total, topic, page, totalResults, loading, error } = this.state;
 
     return (
       <div className="app">
@@ -57,6 +59,7 @@ export default class App extends Component {
         
         <main role="main" id="main">
           <Paging />
+          <Articles articles={articles}/>
         </main>
 
         <footer role="contentinfo" id="footer">

@@ -16,6 +16,7 @@ export default class Search extends Component {
     event.preventDefault();
     const { search } = this.state;
     if(!search.trim()) return;
+    console.log({ search });
 
     this.props.onSearch(search);
   };

@@ -4,17 +4,44 @@ import Search from './Search';
 import Paging from './Paging';
 import { search } from '../services/omdbApi';
 
+const PAGE_SIZE = 10;
+
 export default class App extends Component {
+
+  state = {
+    articles: null,
+    total: 0,
+    topic: null,
+    page: 1,
+    loading: false,
+    error: null
+  };
 
   searchMovie = () => {
     this.setState({
       loading: true,
       error: null
     });
-  }
+
+    const { topic, page } = this.state;
+
+    search(topic, page, PAGE_SIZE)
+      .then(
+        ({ articles, totalResults }) => {
+          this.setState({ articles, totalResults });
+        },
+        error => {
+          this.setState({ error, articles: null });
+        }
+      )
+      .then(() => {
+        this.setState({ loading: false });
+      });
+
+  };
 
   handleSearch = topic => {
-    this.setState({ topic }), this.searchMovie);
+    this.setState({ topic }, this.searchMovie);
   };
 
   render() {

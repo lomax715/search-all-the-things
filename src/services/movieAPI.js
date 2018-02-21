@@ -9,3 +9,12 @@ export function search(query, page = 1) {
     return r.json().then(json => { throw json; }); //return error
   });
 }
+
+export function filterSearch(query, page = 1, filter) {
+  const url = `${BASE_URL}s=${query}&type=${filter}&page=${page}&apiKey=${API_KEY}`;
+  
+  return fetch(url).then(r => {
+    if(r.ok) return r.json();
+    return r.json().then(json => { throw json; }); //return error
+  });
+}

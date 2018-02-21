@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './app.css';
 import Search from './Search';
-// import Paging from './Paging';
 import Movies from './Movies';
 import { search } from '../services/movieApi';
+import { filterSearch } from '../services/movieApi';
 import Paging from './Paging';
+import loadingImage from './loading.gif';
 
 export default class App extends Component {
 
@@ -23,25 +24,41 @@ export default class App extends Component {
       error: null
     });
 
-    const { title, page } = this.state;
+    const { title, page, filter } = this.state;
 
-    search(title, page) //search movies API
-      .then(
-        ({ Search, totalResults }) => { //return results 
-          const convertedResults = parseInt(totalResults);
-          this.setState({ movies: Search, totalResults: convertedResults });
-        },
-        error => { //return error if no results
-          this.setState({ error, movies: null });
-        }
-      )
-      .then(() => { //remove loading
-        this.setState({ loading: false });
-      });
+    if(filter) {
+      filterSearch(title, page, filter) //search filtered
+        .then(
+          ({ Search, totalResults }) => { //return results 
+            const convertedResults = parseInt(totalResults);
+            this.setState({ movies: Search, totalResults: convertedResults });
+          },
+          error => { //return error if no results
+            this.setState({ error, movies: null });
+          }
+        )
+        .then(() => { //remove loading
+          this.setState({ loading: false });
+        });
+    } else {
+      search(title, page) //search movies API
+        .then(
+          ({ Search, totalResults }) => { //return results 
+            const convertedResults = parseInt(totalResults);
+            this.setState({ movies: Search, totalResults: convertedResults });
+          },
+          error => { //return error if no results
+            this.setState({ error, movies: null });
+          }
+        )
+        .then(() => { //remove loading
+          this.setState({ loading: false });
+        });
+    }
   };
 
   handleSearch = title => {
-    this.setState({ title }, this.searchTitles);
+    this.setState({ title, filter: null, page: 1 }, this.searchTitles);
   };
 
   handlePrev = () => this.handlePaging(-1);
@@ -52,6 +69,11 @@ export default class App extends Component {
       prev => ({ page: prev.page + increment }), //increment page
       this.searchTitles //then search new page
     );
+  };
+
+  handleFilter = ({ target }) => {
+    const filter = target.textContent;
+    this.setState({ filter }, this.searchTitles());
   };
 
   render() {
@@ -70,9 +92,18 @@ export default class App extends Component {
           <section id="search">
             <Search onSearch={this.handleSearch}/>
             {movies ? resultsHeader : noSearch}
+            {movies && (
+              <div onClick={this.handleFilter}>
+                <button>Movie</button>
+                <button>Series</button>
+                <button>Episode</button>
+              </div>
+            )}
           </section>
           {loading && (
-            <img src={require('./loading-icon.gif')}/>
+            <div className="loading">
+              <img src={loadingImage}/>
+            </div>
           )}
           <pre>{error && error.message}</pre>
 

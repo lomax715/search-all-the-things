@@ -1,0 +1,28 @@
+@import './variables.css'
+
+#root {
+  min-height: 100vh;
+  display: grid;
+  grid-template-areas:
+  "main"
+  "footer";
+  grid-template-rows: 1fr auto;
+  hyphens: auto;
+}
+#main { grid-area: main; } 
+#footer { grid-area: footer; }
+
+#footer {
+  text-align: center;
+  ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    li {
+      margin: .3rem .5rem;
+      a {
+        color: black;
+      }
+    }
+  }
+}

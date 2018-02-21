@@ -1,6 +1,7 @@
 @import './variables.css'
 
-#root {
+#container {
+  background: red;
   min-height: 100vh;
   display: grid;
   grid-template-areas:

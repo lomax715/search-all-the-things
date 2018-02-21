@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './app.css';
 import Search from './Search';
 // import Paging from './Paging';
-// import Articles from './Articles';
+import Movies from './Movies';
 import { search } from '../services/movieApi';
 
 export default class App extends Component {
@@ -26,11 +26,11 @@ export default class App extends Component {
 
     search(title, page) //search movies API
       .then(
-        ({ titles, totalResults }) => { //return results 
-          this.setState({ titles, totalResults });
+        ({ Search, totalResults }) => { //return results 
+          this.setState({ movies: Search, totalResults });
         },
         error => { //return error if no results
-          this.setState({ error, titles: null });
+          this.setState({ error, movies: null });
         }
       )
       .then(() => { //remove loading
@@ -46,21 +46,33 @@ export default class App extends Component {
 
     const { movies, error, loading, page, title, totalResults } = this.state;
 
+    const resultsHeader = <div>Search for &quot;{title}&quot; found {totalResults} matches</div>;
+    const noSearch = <div>Please search above</div>;
+
     return (
-      <main id="main">
-        <header>
-          <h1>MoviesNow App</h1>
-        </header>
-        <section id="search">
-          <Search onSearch={this.handleSearch}/>
-        </section>
+      <div id="container">
+        <main id="main">
+          <header>
+            <h1>MoviesNow App</h1>
+          </header>
+          <section id="search">
+            <Search onSearch={this.handleSearch}/>
+            {movies ? resultsHeader : noSearch}
+          </section>
 
-        <div>{loading && 'Loading...'}</div>
-        <pre>{error && error.message}</pre>
+          <div>{loading && 'Loading...'}</div>
+          <pre>{error && error.message}</pre>
 
-        <section id="results">
-          {/* results go here */}
-        </section>
+          <section id="results">
+            {movies && (
+              <div>
+                {/* paging goes here  */}
+                <Movies movies={movies}/>
+              </div>
+            )}
+          </section>
+        </main>
+
         <footer id="footer">
           <ul>
             <li>
@@ -84,7 +96,7 @@ export default class App extends Component {
           </ul>
           <small>&copy; 2018 Grace Provost | Student Work</small>
         </footer>
-      </main>
+      </div>
     );
   }
 }

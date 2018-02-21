@@ -1,7 +1,11 @@
 const URL = 'https://swapi.co/api/';
 
-export function search(category, topic){
-  const searchURL = `${URL}${category}/?search=${topic}`;
+const throwJson = json => { throw json; };
+const get = url => fetch(url)
+  .then(response => response.ok ? response.json() : response.json().then(throwJson));
 
-  return fetch(searchURL).then(response => return response.json);
+export function search(topic){
+  const searchURL = `${URL}?search=${topic}`;
+
+  return get(searchURL);
 }

@@ -15,7 +15,8 @@ export default class App extends Component {
     title: null,
     page: 1,
     loading: false,
-    error: null
+    error: null,
+    filter: null
   };
 
   searchTitles = () => {
@@ -73,7 +74,7 @@ export default class App extends Component {
 
   handleFilter = ({ target }) => {
     const filter = target.textContent;
-    this.setState({ filter }, this.searchTitles());
+    this.setState({ filter, page: 1 }, this.searchTitles);
   };
 
   render() {

@@ -6,7 +6,7 @@ export function search(query, page = 1) {
   
   return fetch(url).then(r => {
     if(r.ok) return r.json();
-    return r.json().then(json => { throw json; }); //return error
+    return r.json().then(json => { throw json; }); //does not throw errors
   });
 }
 

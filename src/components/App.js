@@ -34,10 +34,7 @@ export default class App extends Component {
             const convertedResults = parseInt(totalResults);
             this.setState({ movies: Search, totalResults: convertedResults });
           },
-          error => { //return error if no results
-            this.setState({ error, movies: null });
-          }
-        )
+          error => this.setState({ error }))
         .then(() => { //remove loading
           this.setState({ loading: false });
         });
@@ -48,10 +45,7 @@ export default class App extends Component {
             const convertedResults = parseInt(totalResults);
             this.setState({ movies: Search, totalResults: convertedResults });
           },
-          error => { //return error if no results
-            this.setState({ error, movies: null });
-          }
-        )
+          error => this.setState({ error }))
         .then(() => { //remove loading
           this.setState({ loading: false });
         });
@@ -82,7 +76,12 @@ export default class App extends Component {
     const { movies, error, loading, page, title, totalResults } = this.state;
 
     const resultsHeader = <div>Search for &quot;{title}&quot; found {totalResults} matches</div>;
-    const noSearch = <div>Please search above</div>;
+    let noSearch;
+    if(!movies && title) {
+      noSearch = <div>No results found!</div>;
+    } else {
+      noSearch = <div>Search for a title</div>;
+    }
 
     return (
       <div id="container">

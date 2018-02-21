@@ -4,12 +4,13 @@ import Search from './Search';
 // import Paging from './Paging';
 import Movies from './Movies';
 import { search } from '../services/movieApi';
+import Paging from './Paging';
 
 export default class App extends Component {
 
   state = {
     movies: null,
-    total: 0,
+    totalResults: 0,
     title: null,
     page: 1,
     loading: false,
@@ -27,7 +28,8 @@ export default class App extends Component {
     search(title, page) //search movies API
       .then(
         ({ Search, totalResults }) => { //return results 
-          this.setState({ movies: Search, totalResults });
+          const convertedResults = parseInt(totalResults);
+          this.setState({ movies: Search, totalResults: convertedResults });
         },
         error => { //return error if no results
           this.setState({ error, movies: null });
@@ -40,6 +42,16 @@ export default class App extends Component {
 
   handleSearch = title => {
     this.setState({ title }, this.searchTitles);
+  };
+
+  handlePrev = () => this.handlePaging(-1);
+  handleNext = () => this.handlePaging(1);
+
+  handlePaging = increment => {
+    this.setState(
+      prev => ({ page: prev.page + increment }), //increment page
+      this.searchTitles //then search new page
+    );
   };
 
   render() {
@@ -59,15 +71,23 @@ export default class App extends Component {
             <Search onSearch={this.handleSearch}/>
             {movies ? resultsHeader : noSearch}
           </section>
-
-          <div>{loading && 'Loading...'}</div>
+          {loading && (
+            <img src={require('./loading-icon.gif')}/>
+          )}
           <pre>{error && error.message}</pre>
 
           <section id="results">
             {movies && (
               <div>
-                {/* paging goes here  */}
+                <Paging totalResults={totalResults}
+                  page={page}
+                  onPrev={this.handlePrev}
+                  onNext={this.handleNext}/>
                 <Movies movies={movies}/>
+                <Paging totalResults={totalResults}
+                  page={page}
+                  onPrev={this.handlePrev}
+                  onNext={this.handleNext}/>
               </div>
             )}
           </section>

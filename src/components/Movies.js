@@ -13,8 +13,8 @@ export default class Movies extends Component {
 
     return (
       <ul>
-        {movies.map((movie) => (
-          <Movie key={movie.imdbID} movie={movie}/>
+        {movies.map((movie, index) => (
+          <Movie key={index} movie={movie}/>
         ))}
       </ul>
     );

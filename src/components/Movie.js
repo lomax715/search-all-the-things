@@ -10,6 +10,14 @@ export default class Movie extends Component {
 
   render() {
     const { Title, Year, Poster } = this.props.movie;
+
+    if(Poster === 'N/A') return (
+      <li>
+        <p className="missingPoster">?</p>
+        <h2>{Title}</h2>
+        <p>{Year}</p>
+      </li>
+    );
     
     return (
       <li>

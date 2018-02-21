@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { search } from '../services/starWarsApi.js';
 import Search from './search';
+import SwData from './swData';
+import swList from './swList';
 
 
 export default class App extends Component {
@@ -14,6 +16,7 @@ export default class App extends Component {
 
   searchSWAPI = () => {
     this.setState({
+      results: null,
       loading: true,
       error: null,
     });
@@ -22,11 +25,11 @@ export default class App extends Component {
     const { topic } = this.state; 
 
     search(topic).then(
-      ({ swData }) => 
-      { this.setState({ swData });
+      ({ results }) => 
+      { this.setState({ results });
       },
       error => {
-        this.setState({ error, articles: null });
+        this.setState({ error, results: null });
       });
     
   }; 
@@ -37,10 +40,17 @@ export default class App extends Component {
 
 
   render(){
+    const { results } = this.state;
     return (
-      <header>
-        <Search onSearch={this.handleSearch}/>
-      </header>
+      <div>
+        <header>
+          <Search onSearch={this.handleSearch}/>
+        </header>
+
+        <div>
+          <div results={results}/>
+        </div>
+      </div>
 
     );
   }

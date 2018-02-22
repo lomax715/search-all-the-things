@@ -20,17 +20,17 @@ export default class App extends Component {
   };
 
   searchMovie = () => {
+    const { topic, page } = this.state;
+    
     this.setState({
       loading: true,
       error: null
     });
 
-    const { topic, page } = this.state;
-
     search(topic, page, PAGE_SIZE)
       .then(
-        ({ articles, totalResults }) => {
-          this.setState({ articles, totalResults });
+        ({ Search, totalResults }) => {
+          this.setState({ articles: Search, totalResults });
         },
         error => {
           this.setState({ error, articles: null });
@@ -46,8 +46,18 @@ export default class App extends Component {
     this.setState({ topic }, this.searchMovie);
   };
 
+  handlePrev = () => this.handlePaging(-1);
+  handleNext = () => this.handlePaging(1);
+
+  handlePaging = incr => {
+    this.setState(
+      prev => ({ page: prev.page + incr }),
+      this.searchMovie
+    );
+  };
+
   render() {
-    const { articles, total, topic, page, totalResults, loading, error } = this.state;
+    const { articles, page, totalResults, loading, error } = this.state;
 
     return (
       <div className="app">
@@ -58,8 +68,21 @@ export default class App extends Component {
         </header>
         
         <main role="main" id="main">
-          <Paging />
-          <Articles articles={articles}/>
+          
+          <div>{loading && 'Loading...'}</div>
+          <pre>{error && error.message}</pre>
+
+          {articles && (
+            <div>
+              <Paging totalResults={totalResults}
+                page={page} 
+                perPage={PAGE_SIZE} 
+                onPrev={this.handlePrev} 
+                onNext={this.handleNext}/>
+
+              <Articles articles={articles}/>
+            </div>
+          )}
         </main>
 
         <footer role="contentinfo" id="footer">

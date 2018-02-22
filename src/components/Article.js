@@ -8,14 +8,15 @@ export default class Article extends Component {
   };
 
   render() {
-    const { title, year, imdbID, type, poster } = this.props.article;
+    const { Title, Year, imdbID, Type, Poster } = this.props.article;
 
     return (
       <li> 
-        <img src={poster}/>
-        <h3>{title}</h3>
-        <p>Year made: {year}</p>
-        <p>{type} | IMDB ID: {imdbID}</p>
+        <img src={Poster}/>
+        <h3>{Title}</h3>
+        <p>Year made: {Year}</p>
+        <p>{Type} | IMDB ID: {imdbID}</p>
+        console.log({Year});
       </li>
     );
   }

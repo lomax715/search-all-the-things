@@ -1,0 +1,10 @@
+.page-buttons {
+  display: flex;
+  button {
+    margin: .5rem;
+  }
+}
+
+.page-string{
+  margin-bottom: 0;
+}

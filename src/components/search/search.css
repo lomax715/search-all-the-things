@@ -1,0 +1,23 @@
+.search {
+  max-width: 500px;
+  margin: 0 auto;
+  margin-top: 1rem;
+  label {
+    font-size: 1.2rem;
+  }
+  input {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    background: rgba(255,255,255,.1);
+    border: none;
+    border-radius: .5rem;
+    font-size: 1rem;
+    margin: 0;
+    outline: 0;
+    padding: .7rem;
+    width: 100%;
+    box-sizing: border-box; 
+    background-color: #e8eeef;
+    color:#8a97a0;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  }
+}

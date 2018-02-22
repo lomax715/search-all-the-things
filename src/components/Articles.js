@@ -12,7 +12,7 @@ export default class Articles extends Component {
     const { articles } = this.props;
 
     return (
-      <ul>
+      <ul className="result-grid">
         {articles.map((article, i) => (
           <Article key={i} article={article}/>
         ))}

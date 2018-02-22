@@ -57,7 +57,7 @@ export default class App extends Component {
   };
 
   render() {
-    const { articles, page, totalResults, loading, error } = this.state;
+    const { articles, topic, page, totalResults, loading, error } = this.state;
 
     return (
       <div className="app">
@@ -69,6 +69,16 @@ export default class App extends Component {
         
         <main role="main" id="main">
           
+          <div className="search-header">
+            {articles ? 
+              <div>
+                <h4>Search for &quot;{topic}&quot; found {totalResults} matches</h4>
+              </div> 
+              : 
+              <div>Welcome</div>
+            }
+          </div>
+
           <div>{loading && 'Loading...'}</div>
           <pre>{error && error.message}</pre>
 

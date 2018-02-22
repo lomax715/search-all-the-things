@@ -16,7 +16,6 @@ export default class Article extends Component {
         <h3>{Title}</h3>
         <p>Year made: {Year}</p>
         <p>{Type} | IMDB ID: {imdbID}</p>
-        console.log({Year});
       </li>
     );
   }

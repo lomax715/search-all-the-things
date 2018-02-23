@@ -1,0 +1,7 @@
+div.loading{
+    position: fixed;
+    bottom: 50%;
+    top: 50%;
+    color: red;
+    font-size: 20px
+    }

@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/heicj/search-all-the-things.git"
+    "url": "git+https://github.com/lomax715/search-all-the-things.git"
   },
-  "author": "Charlie Heiner",
+  "author": "Jack Lomax",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/heicj/search-all-the-things/issues"
+    "url": "https://github.com/lomax715/search-all-the-things/issues"
   },
-  "homepage": "https://github.com/heicj/search-all-the-things#readme",
+  "homepage": "https://github.com/lomax715/search-all-the-things",
   "dependencies": {
     "react": "^16.2.0",
     "prop-types": "^15.6.0",

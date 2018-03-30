@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { search } from '../services/starWarsApi.js';
 import Search from './search';
-import StarWarsList from './swList';
+import StarWarsList from './starWarsList';
 import Category from './category';
 
 

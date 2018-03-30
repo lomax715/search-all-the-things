@@ -12,11 +12,10 @@ export default class Category extends Component {
     return (
       <select onChange={this.handleCategory}>
         <option>People</option>
-        <option>Films</option>
         <option>Planets</option>
-        <option>Species</option>
-        <option>Starships</option>
+        <option>Films</option>
         <option>Vehicles</option>
+        <option>Factions</option>
       </select>
     );
   }

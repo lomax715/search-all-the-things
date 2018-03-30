@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import StarWarsData from './starWarsData';
+import StarWarsText from './starWarsText';
 
-export default class StarWarsList extends Component {
+export default class StarWars extends Component {
     static propTypes = {
       results: PropTypes.array.isRequired
     };
@@ -13,7 +13,7 @@ export default class StarWarsList extends Component {
       return (
         <ul>
           {results.map((data, i) => (
-            <StarWarsData key = {i} article={data}/>
+            <StarWarsText key = {i} article={data}/>
           ))}
         </ul>
       );

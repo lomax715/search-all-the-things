@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { search } from '../services/starWarsApi.js';
 import Search from './search';
-import StarWarsList from './starWarsList';
+import StarWars from './starWars';
 import Category from './category';
 
 
@@ -57,7 +57,7 @@ export default class App extends Component {
         <div>{loading && 'Loading...'}</div>
       
         <div>
-          {results && <StarWarsList results={results}/>}
+          {results && <StarWars results={results}/>}
         </div>
           
       </div>

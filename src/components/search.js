@@ -28,7 +28,7 @@ export default class Search extends Component{
 
       return (
         <form onSubmit={this.handleSubmit}>
-          <label>Search Star Wars API for:</label>
+          <label>Search Star Wars</label>
           <input value={search} onChange={this.handleChange}/>
           <button>Search</button>
         </form>
